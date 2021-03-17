@@ -30,9 +30,8 @@
             <div class=" h-100 d-flex flex-column">
               <div class="flex-grow-1 overflow-auto pr-3" style="height:0px">
                 <%-- 메뉴 내용 부분 --%>
-                좌측 메뉴를 클릭하면 해당 내용이 나오는 부분
-                <br />
-                요청 ---> DispatcherServlet --> Exam01Controller --> home.jsp
+                method01.jsp
+                <hr />
               </div>
             </div>
           </div>
