@@ -5,9 +5,16 @@
 
 
 <%-- 메뉴 내용 부분 --%>
-좌측 메뉴를 클릭하면 해당 내용이 나오는 부분
-<br />
-요청 ---> DispatcherServlet --> Exam01Controller --> home.jsp
+<div>
+	uid: ${user.uid} <br />
+	uname: ${user.uname}<br />
+	upassword: ${user.upassword}<br />
+	uhobby:
+	<c:forEach var="hobby" items="${user.uhobby}">
+		${hobby},
+	</c:forEach><br />
+	ujob: ${user.ujob}<br />
+</div>
 
 
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

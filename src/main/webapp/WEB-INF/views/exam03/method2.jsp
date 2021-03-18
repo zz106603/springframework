@@ -5,9 +5,11 @@
 
 
 <%-- 메뉴 내용 부분 --%>
-좌측 메뉴를 클릭하면 해당 내용이 나오는 부분
-<br />
-요청 ---> DispatcherServlet --> Exam01Controller --> home.jsp
+<div>
+	uemail: ${uemail} <br />
+	upassword: ${upassword}<br />
+	upublic: ${upublic}
+</div>
 
 
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
