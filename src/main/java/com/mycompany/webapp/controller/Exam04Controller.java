@@ -13,16 +13,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.webapp.dto.Board;
-import com.mycompany.webapp.service.Exam04Service;
+import com.mycompany.webapp.dto.Pager;
+import com.mycompany.webapp.service.BoardService;
 
 @Controller
 @RequestMapping("/exam04")
 public class Exam04Controller {
 	
 	@Autowired
-	private Exam04Service exam04Service;
+	private BoardService boardService;
 	
 	@Autowired
 	private DataSource dataSource;
@@ -48,17 +50,85 @@ public class Exam04Controller {
 		return "exam04/content";
 	}
 
-	@GetMapping("/boards")
+
+	/*@GetMapping("/list")
 	public String getBoardList(Model model) {
-		
-		List<Board> list = exam04Service.getBoardList();
-		model.addAttribute("list", list);
-		return "exam04/boardlist";
+			List<Board> list = boardService.getBoardList();
+			model.addAttribute("list", list);
+			return "exam04/boardlist";
+	}*/
+	
+	@GetMapping("/list")
+	public String getBoardList(
+			@RequestParam(defaultValue="1") int pageNo, Model model) {
+			
+			int totalRows = boardService.getTotalRows();
+			Pager pager = new Pager(10,5,totalRows, pageNo);
+			List<Board> list = boardService.getBoardList(pager);
+			model.addAttribute("list", list);
+			model.addAttribute("pager", pager);
+			return "exam04/boardlist";
 	}
 	
-	@PostMapping("/boards")
-	public String saveBoard() {
-		return "redirect:/boards";
+	@GetMapping("/createForm")
+	public String createForm() {
+		return "exam04/createForm";
 	}
+	
+	
+	/*	@PostMapping("/create")
+		public String saveBoard(String btitle, String bcontent) {
+			
+			Board board = new Board();
+			board.setBtitle(btitle);
+			board.setBcontent(bcontent);
+			board.setBwriter("임시 사용자");
+			boardsService.saveBoard(board);
+			
+			return "redirect:/exam04/list";
+		}*/
+	
+	@PostMapping("/create")
+	public String create(Board board) {
+		board.setBwriter("임시 사용자");
+		boardService.saveBoard(board);
+		
+		return "redirect:/exam04/list";
+	}
+	
+	
+	@GetMapping("/read")
+	public String read(int bno, Model model) {
+		boardService.addHitcount(bno);
+		Board board = boardService.getBoard(bno);
+		model.addAttribute("board", board);
+		return "exam04/read";
+	}
+	
+	@GetMapping("/updateForm")
+	public String updateForm(int bno, Model model) {
+		
+		//수정창에 기존 데이터를 가져옴
+		Board board = boardService.getBoard(bno);
+		model.addAttribute("board", board);
+		return "exam04/updateForm";
+	}
+	
+	/* form을 이용하여 데이터를 전달받아서 객체에 저장 */
+	@PostMapping("/update")
+	public String update(Board board) {
+		boardService.updateBoard(board);
+		return "redirect:/exam04/list";
+	}
+	
+	/* Get으로 데이터를 전달 받았기 때문에 int bno선언 후 사용 */
+	@GetMapping("/delete")
+	public String delete(int bno) {
+		boardService.deleteBoard(bno);
+		
+		return "redirect:/exam04/list";
+	}
+	
+	
 
 }
