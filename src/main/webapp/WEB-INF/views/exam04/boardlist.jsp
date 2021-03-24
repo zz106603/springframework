@@ -29,17 +29,48 @@
 
 	<c:forEach var="board" items="${list}">
 		<tr>
-			<%-- EL로 데이터 출력 --%>
+			
 			<td>${board.bno}</td>
-			<%-- EL을 가져와서 씀 --%>
-			<td>${board.btitle}</td>
-			<!-- getdtitle임 get 생략 -->
+			<td><a href="read?bno=${board.bno}">${board.btitle}</td>
 			<td>${board.bcontent}</td>
 			<td>${board.bwriter}</td>
 			<td><fmt:formatDate value="${board.bdate}" pattern="YYYY-MM-DD"/></td>
 			<td>${board.bhitcount}</td>
 		</tr>
 	</c:forEach>
+	
+	<tr>
+		<td colspan="5" style="text-center">
+			<a class="btn btn-outline-primary btn-sm"
+				href="list?pageNo=1">처음</a>
+				
+			<c:if test="${pager.groupNo>1}">
+				<a class="btn btn-outline-info btn-sm"
+				href="list?pageNo=${pager.startPageNo-1}">이전</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+				<c:if test="${pager.pageNo == i}">
+					<a class="btn btn-outline-success btn-sm" 
+						href="list?pageNo=${i}">${i}</a>
+				</c:if>
+				<c:if test="${pager.pageNo != i}">
+					<a class="btn btn-outline-danger btn-sm" 
+						href="list?pageNo=${i}">${i}</a>
+				</c:if>
+			</c:forEach>
+			
+			<c:if test="${pager.groupNo<pager.totalGroupNo}">
+				<a class="btn btn-outline-info btn-sm"
+				href="list?pageNo=${pager.endPageNo+1}">다음</a>
+			</c:if>
+				
+			<a class="btn btn-outline-primary btn-sm"
+				href="list?pageNo=${pager.totalPageNo}">맨끝</a>
+			
+			<!-- [처음][이전] 1 2 3 4 5 [다음][맨끝] -->
+		</td>
+	</tr>
 </table>
 		
 	</div>
