@@ -45,7 +45,7 @@ public class BoardService {
 	}
 
 	public void deleteBoard(int bno) {
-		boardsDao.delete(bno);
+		boardsDao.deleteByBno(bno);
 		
 	}
 

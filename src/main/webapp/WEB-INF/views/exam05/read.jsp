@@ -1,7 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
@@ -47,18 +45,19 @@
 	</div>
 	
 	<div>
-		<a class="btn btn-primary btn-sm" href="list">목록</a>
-		<c:if test="${loginUid == board.bwriter}">
-			<a class="btn btn-primary btn-sm" href="updateForm?bno=${board.bno}">수정(U)</a>
-			<a class="btn btn-primary btn-sm" href="delete?bno=${board.bno}">삭제(D)</a>
+	
+	<button class="btn btn-primary btn-sm" onclick="getList()">목록</button>
+		<c:if test="${$loginUid == board.bwriter}">
+			<button class="btn btn-primary btn-sm" onclick="updateForm(${board.bno})">수정(U)</button>
+			<button class="btn btn-danger btn-sm" onclick="deleteBoard(${board.bno})">삭제(D)</button>	
 		</c:if>
 		
+		
+
 	</div>
 	
 	    
 </div>
 
-
-<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 
