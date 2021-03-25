@@ -35,8 +35,7 @@ public class Exam06Controller {
 			cookie.setPath("/");
 			cookie.setHttpOnly(true);
 			cookie.setMaxAge(10);*/
-		response.addCoo
-		kie(cookie);
+		response.addCookie(cookie);
 
 		Cookie cookie2 = new Cookie("utel", "01087554034");
 		response.addCookie(cookie2);
