@@ -84,9 +84,6 @@ public class Exam04Controller {
 			intPageNo = Integer.parseInt(pageNo);
 		}
 
-
-
-
 		int totalRows = boardService.getTotalRows();
 		Pager pager = new Pager(10,5,totalRows, intPageNo);
 		session.setAttribute("pager", pager);

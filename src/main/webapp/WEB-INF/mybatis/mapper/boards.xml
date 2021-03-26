@@ -34,11 +34,16 @@
 
 	
 	<insert id="insert" parameterType="board">
+		<!-- 시퀀스 넘버를 전달하여 사용하기 위해 -->
+		<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+			select seq_boards_bno.nextval from dual
+		</selectKey>
+	
 		<if test="battachoname == null">
 		INSERT INTO boards
 			(bno, btitle, bcontent, bwriter, bdate, bhitcount)
 		VALUES(
-			seq_boards_bno.nextval,
+			#{bno},
 			#{btitle},
 			#{bcontent},
 			#{bwriter},
