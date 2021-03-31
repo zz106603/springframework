@@ -29,7 +29,6 @@
 
 	<c:forEach var="board" items="${list}">
 		<tr>
-			
 			<td>${board.bno}</td>
 			<td><a href="read?bno=${board.bno}">${board.btitle}</td>
 			<td>${board.bcontent}</td>

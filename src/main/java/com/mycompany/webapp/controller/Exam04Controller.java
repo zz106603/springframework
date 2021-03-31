@@ -85,8 +85,6 @@ public class Exam04Controller {
 		}
 
 
-
-
 		int totalRows = boardService.getTotalRows();
 		Pager pager = new Pager(10,5,totalRows, intPageNo);
 		session.setAttribute("pager", pager);
@@ -137,6 +135,7 @@ public class Exam04Controller {
 
 	@GetMapping("/read")
 	public String read(int bno, Model model) {
+		logger.info(String.valueOf(bno));
 		boardService.addHitcount(bno);
 		Board board = boardService.getBoard(bno);
 		model.addAttribute("board", board);
